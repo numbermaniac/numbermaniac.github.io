@@ -1,0 +1,57 @@
+<!-- made by numbermaniac :) version 1.1-->
+<div style="font-size:120%">
+<h3>numbermaniac's Taiko pp calculator v1.1</h3>
+Star difficulty: (include DT/HT if used)<br><input type="text" name="strain"><br>
+Maximum combo:<br><input type="text" name="numcircles"><br>
+Misses:<br><input type="text" name="misses"><br>
+Accuracy (out of 100):<br><input type="text" name="acc"><br>
+300 hit window in milliseconds: (include HR/EZ and DT/HT if used)<br>(At map selection, hover over the OD at the top left)<br><input type="text" name="OD"><br>
+<input type="checkbox" name="HD">HD<br>
+<input type="checkbox" name="FL">FL<br>
+<input type="checkbox" name="NF">NF<br>
+<input type="checkbox" name="SO">SO<br>
+<input type="submit" onclick="calcpp()"><br><br>
+<div id="pp"></div></div>
+
+<script>
+function calcpp(){
+	strain=+document.getElementsByName("strain")[0].value;
+	hitcount=+document.getElementsByName("numcircles")[0].value;
+	misses=+document.getElementsByName("misses")[0].value;
+	usercombo=hitcount-misses;
+	acc=+document.getElementsByName("acc")[0].value;
+	OD300=+document.getElementsByName("OD")[0].value;
+
+	if(strain < 0 || hitcount < 0 || misses < 0 || usercombo < 0 || acc < 0 || acc > 100 || OD300 < 0 || misses > hitcount){
+		document.getElementById("pp").innerHTML = "Something is wrong with at least one of your inputs."
+		return;
+	}
+
+	StrainValue = Math.pow(Math.max(1,strain/0.0075) * 5 - 4,2)/100000;
+	LengthBonus = Math.min(1,hitcount/1500) * 0.1 + 1;
+	StrainValue *= LengthBonus;
+	StrainValue *= Math.pow(0.985,misses);
+	StrainValue *= Math.min(Math.pow(usercombo,0.5) / Math.pow(hitcount,0.5),1);
+	StrainValue *= acc/100;
+	AccValue = Math.pow(150/OD300,1.1) * Math.pow(acc/100,15) * 22;
+	AccValue *= Math.min(Math.pow(hitcount/1500,0.3),1.15);
+	
+	ModMultiplier = 1.10;
+	if (document.getElementsByName("HD")[0].checked){
+		ModMultiplier *= 1.10
+		StrainValue *= 1.025
+	}
+	if (document.getElementsByName("SO")[0].checked){
+		ModMultiplier *= 0.95
+	}
+	if (document.getElementsByName("NF")[0].checked){
+		ModMultiplier *= 0.90
+	}
+	if (document.getElementsByName("FL")[0].checked){
+		StrainValue *= 1.05 * LengthBonus
+	}
+	TotalValue = Math.pow(Math.pow(StrainValue,1.1) + Math.pow(AccValue,1.1),1.0/1.1) * ModMultiplier;
+
+	document.getElementById("pp").innerHTML = Math.round(TotalValue * 100) / 100 + " pp"
+}
+</script>
