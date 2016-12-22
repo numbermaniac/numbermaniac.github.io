@@ -1,0 +1,6 @@
+<!DOCTYPE HTML>
+<!-- v5 is like v4 but calculates the total steps and time for a range of numbers-->
+<script src="bigint.js"></script>
+<script>
+var zt=0,start=bigInt(prompt("start?")),n=start,cur=start,end=bigInt(prompt("end?"));(start.lesser(1)||end.lesser(1)||end.lesser(start))&&(document.write("<span style=color:red> Either one or more of the inputs are less than 1, or the end value was less than the start value"),exit());for(var a=Date.now();n.lesserOrEquals(end);){for(var z=1,p=n;n.notEquals(1);)n=n.isEven()?n.divide(2):n.multiply(3).plus(1),n.greater(p)&&(p=n),z+=1;document.write("Done "+cur+" in "+z+" steps <br>"),zt+=z,cur=cur.plus(1),n=cur}var b=Date.now();document.write(zt+" total steps <br>Done in "+(b-a)/1e3+" seconds");
+</script>
