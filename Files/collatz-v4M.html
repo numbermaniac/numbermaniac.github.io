@@ -1,6 +1,0 @@
-<!DOCTYPE HTML>
-<!-- This version differs from v3 in that in does not print the steps, making it optimal for larger numbers and also makes it a LOT faster-->
-<script src="bigint.js"></script>
-<script>
-var n=bigInt(prompt("Number to test?")),z=0,p=n;n.isNegative()&&(document.write("<span style=color:red> ERROR: Positive only!"),end());for(var a=Date.now();n.notEquals(1);)n=n.isEven()?n.divide(2):n.multiply(3).plus(1),n.greater(p)&&(p=n),z+=1;var b=Date.now();document.write("Done in "+z+" steps <br>"),document.write("Peak: "+p.toString()),document.write("<br> Done in "+(b-a)/1e3+" seconds");
-</script>
