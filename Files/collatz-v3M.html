@@ -4,3 +4,12 @@
 <script>
 var n=bigInt(prompt("Number?")),z=0,p=n;document.write("Starting number: "+n.toString()+"<br>"),n.isNegative()&&(document.write("<span style=color:red> ERROR: Positive only!"),end());for(var a=Date.now();n.notEquals(1);)n=n.isEven()?n.divide(2):n.multiply(3).plus(1),n.greater(p)&&(p=n),document.write(n.toString()+"<br>"),z+=1;var b=Date.now();document.write("Done in "+z+" steps<br>Peak: "+p.toString()+"<br>Done in "+(b-a)/1e3+" seconds");
 </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44606733-2', 'auto');
+  ga('send', 'pageview');
+</script>
